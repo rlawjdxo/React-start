@@ -3,14 +3,25 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter } from 'react-router-dom'; //react-router-dom
+// import { BrowserRouter } from 'react-router-dom'; //react-router-dom
+import { Provider } from 'react-redux'
+import rootReducer from './modules/rootReducer'
+
+// redux-logger 사용하기
+import { createStore, applyMiddleware } from 'redux';
+import { createLogger } from 'redux-logger';
+
+const logger = createLogger();
+const store = createStore(rootReducer, applyMiddleware(logger));
+
 
 // BrowserRouter라는 컴포넌트
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
-  <BrowserRouter>
+  <Provider store={store}>
     <App />
-  </BrowserRouter>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
